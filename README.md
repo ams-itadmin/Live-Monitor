@@ -11,7 +11,7 @@ This repository contains scripts to set up a network bridge and enable promiscuo
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/network-setup.git
+   git clone https://github.com/ams-itadmin/Live-Monitor.git
    cd Live-Monitoring
    ```
 

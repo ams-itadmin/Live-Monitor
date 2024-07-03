@@ -27,13 +27,18 @@ This repository contains scripts to set up a network bridge and enable promiscuo
     ```
 
 ## Setup
-1. Run the setup script to create the network bridge and enable promiscuous mode:
+1. Activate the virtual environment.
+
+    ```bash
+    source venv/bin/activate
+    ```
+2. Run the setup script to create the network bridge and enable promiscuous mode:
 
     ```bash
     python3 setup.py
     ```
 
-1. Follow the prompts to select the two network interfaces.
+3. Follow the prompts to select the two network interfaces.
 
 ## Teardown
 1. Run the teardown script to remove the network bridge and disable promiscuous mode:

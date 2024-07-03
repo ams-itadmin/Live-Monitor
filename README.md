@@ -12,9 +12,14 @@ This repository contains scripts to set up a network bridge and enable promiscuo
 
    ```bash
    git clone https://github.com/ams-itadmin/Live-Monitor.git
-   cd Live-Monitoring
+   cd Live-Monitor
    ```
 
+1. Make the installer executable
+
+    ```bash
+    chmod +x installer.sh
+    ```
 1. Run the installer script:
 
     ```bash

@@ -2,7 +2,7 @@
 
 # Update and install necessary packages
 sudo apt update
-sudo apt install -y git wireshark bridge-utils net-tools python3-pip python3-venv -y
+sudo apt install -y wireshark bridge-utils net-tools python3-pip python3-venv -y
 
 # Create a venv
 python3 -m venv venv 

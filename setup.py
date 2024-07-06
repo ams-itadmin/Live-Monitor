@@ -118,7 +118,7 @@ def main():
         print()
         print("1. Create Bridge")
         print("2. Teardown Bridge")
-        print("3. Show Bridge Info")
+        print("3. Show Interface Info")
         print("4. Exit")
         print()
 

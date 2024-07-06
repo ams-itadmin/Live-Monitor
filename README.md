@@ -39,3 +39,10 @@ This repository contains scripts to set up a network bridge and enable promiscuo
     ```
 
 3. Follow the prompts to select the two network interfaces.
+
+## Shutdown
+1. Deactivate the venv
+
+    ```bash
+    deactivate
+    ```

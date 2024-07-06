@@ -39,10 +39,3 @@ This repository contains scripts to set up a network bridge and enable promiscuo
     ```
 
 3. Follow the prompts to select the two network interfaces.
-
-## Teardown
-1. Run the teardown script to remove the network bridge and disable promiscuous mode:
-
-    ```bash
-    python3 teardown.py
-    ```

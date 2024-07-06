@@ -65,9 +65,10 @@ def remove_bridge():
         print(f"Bridge {bridge} and promiscuous mode on {interface1} and {interface2} have been removed.")
     except (FileNotFoundError, json.JSONDecodeError):
         print("Configuration file not found or invalid. Please create a bridge first.")
+        log_event("Configuration file not found or invalid. Please create a bridge first.")
 
 def create_bridge_main():
-    log_event("Setup script started")
+    # log_event("bridge creation process started")
     
     interfaces = list_interfaces()
     print("Available interfaces:")
@@ -89,7 +90,9 @@ def create_bridge_main():
     interface2 = interfaces[idx2]
 
     create_bridge(interface1, interface2)
+    log_event(f"Bridge created with interfaces {interface1} and {interface2}.")
     print(f"Bridge created with interfaces {interface1} and {interface2}.")
+    log_event(show_bridge_info())
     show_bridge_info()
 
 def show_bridge_info():

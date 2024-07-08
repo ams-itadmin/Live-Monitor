@@ -1,5 +1,6 @@
 import psutil
 import json
+import socket
 import subprocess
 import logging
 from datetime import datetime
@@ -18,6 +19,57 @@ def list_interfaces():
     interfaces = psutil.net_if_addrs()
     return [iface for iface in interfaces if iface != 'lo']
 
+def parse_network_info():
+    interfaces = psutil.net_if_addrs()
+    parsed_info = {}
+
+    for iface, addrs in interfaces.items():
+        iface_info = {
+            'MAC': None,
+            'IPv4': None,
+            'IPv6': None
+        }
+        for addr in addrs:
+            if addr.family == socket.AF_PACKET:
+                iface_info['MAC'] = addr.address
+            elif addr.family == socket.AF_INET:
+                iface_info['IPv4'] = {
+                    'address': addr.address,
+                    'netmask': addr.netmask
+                }
+            elif addr.family == socket.AF_INET6:
+                iface_info['IPv6'] = {
+                    'address': addr.address,
+                    'netmask': addr.netmask
+                }
+        parsed_info[iface] = iface_info
+
+    return parsed_info
+
+
+def print_network_info(parsed_info):
+    for iface, info in parsed_info.items():
+        print(f"Interface: {iface}")
+        print(f"  MAC Address: {info['MAC']}")
+        if info['IPv4']:
+            print(f"  IPv4 Address: {info['IPv4']['address']}")
+            print(f"  IPv4 Netmask: {info['IPv4']['netmask']}")
+        if info['IPv6']:
+            print(f"  IPv6 Address: {info['IPv6']['address']}")
+            print(f"  IPv6 Netmask: {info['IPv6']['netmask']}")
+        print("-" * 40)
+
+
+def show_bridge_info():
+    # Use subprocess to call brctl show
+    result = subprocess.run(['brctl', 'show'], stdout=subprocess.PIPE)
+    print(result.stdout.decode('utf-8'))
+
+    # Use psutil to display network interface details
+    parsed_info = parse_network_info()
+    print_network_info(parsed_info)
+
+
 def create_initial_config():
     config = {
         'interfaces': ["", ""],
@@ -25,6 +77,7 @@ def create_initial_config():
     }
     with open('config.json', 'w') as f:
         json.dump(config, f, indent=4)
+
 
 def create_bridge(interface1, interface2):
     subprocess.run(['sudo', 'ip', 'link', 'add', 'name', 'br0', 'type', 'bridge'])
@@ -42,6 +95,7 @@ def create_bridge(interface1, interface2):
         json.dump(config, f, indent=4)
 
     log_event(f"Bridge created: interfaces {interface1} and {interface2}, bridge br0")
+    
 
 def remove_bridge():
     try:
@@ -96,19 +150,6 @@ def create_bridge_main():
     log_event(show_bridge_info())
     show_bridge_info()
 
-def show_bridge_info():
-    # Use subprocess to call brctl show
-    result = subprocess.run(['brctl', 'show'], stdout=subprocess.PIPE)
-    print(result.stdout.decode('utf-8'))
-
-    # Use psutil to display network interface details
-    interfaces = psutil.net_if_addrs()
-    for iface, addrs in interfaces.items():
-        print(f"Interface: {iface}")
-        for addr in addrs:
-            if addr.family == psutil.AF_LINK:
-                print(f"MAC Address: {addr.address}")
-        print("-" * 40)
 
 def main():
     create_initial_config()  # Ensure the config file is created with empty fields

@@ -18,7 +18,7 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 
 # Create an empty configuration file
-touch config.json
+# touch config.json
 
 # Create an empty log file
 touch general.log

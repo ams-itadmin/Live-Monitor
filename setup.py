@@ -2,8 +2,18 @@ import psutil
 import json
 import socket
 import subprocess
+import os
 import logging
 from datetime import datetime
+
+# Setup Config File
+config_file = 'config.json'
+
+# Default Config
+default_config = {
+    'interfaces': ["", ""],
+    'bridge': ""
+}
 
 # Configure logging
 logging.basicConfig(
@@ -58,13 +68,24 @@ def show_bridge_info():
     parsed_info = parse_network_info()
     print_network_info(parsed_info)
 
-def create_initial_config():
-    config = {
-        'interfaces': ["", ""],
-        'bridge': ""
-    }
-    with open('config.json', 'w') as f:
+def create_initial_config(default_config):
+    with open(config_file, 'w') as f:
+        json.dump(default_config, f, indent=4)
+
+def write_config(config):
+    with open(config_file, 'w') as f:
         json.dump(config, f, indent=4)
+
+def read_config():
+    if not os.path.exists(config_file):
+        # Create the config file with default values if it doesn't exist
+        with open(config_file, 'w') as f:
+            json.dump(default_config, f, indent=4)
+        return default_config
+    else:
+        # Read the existing config file
+        with open(config_file, 'r') as f:
+            return json.load(f)
 
 def create_bridge(interface1, interface2):
     subprocess.run(['sudo', 'ip', 'link', 'add', 'name', 'br0', 'type', 'bridge'])
@@ -103,6 +124,11 @@ def remove_bridge():
         log_event(f"Bridge removed: {bridge}, interfaces {interface1} and {interface2}")
 
         print(f"Bridge {bridge} and promiscuous mode on {interface1} and {interface2} have been removed.")
+
+        #Update Config File
+        write_config(default_config)
+        log_event(f"Configuration file changed: {bridge} removed.")
+
     except (FileNotFoundError, json.JSONDecodeError):
         print("Configuration file not found or invalid. Please create a bridge first.")
         log_event("During Remove Event: Configuration file not found or invalid. Please create a bridge first.")
@@ -137,7 +163,7 @@ def create_bridge_main():
     show_bridge_info()
 
 def main():
-    create_initial_config()  # Ensure the config file is created with empty fields
+    read_config()  # Ensure the config file is created with empty fields
     
     while True:
         print("\n\n***** Bridge Utility *****")

@@ -121,14 +121,14 @@ def create_bridge_main():
         print(f"{i}: {iface}")
 
     try:
-        idx1 = int(input("Select the first interface by number: "))
-        idx2 = int(input("Select the second interface by number: "))
+        idx1 = int(input("\nSelect the first interface by number: "))
+        idx2 = int(input("\nSelect the second interface by number: "))
     except ValueError:
-        print("Invalid input. Please enter a number.")
+        print("\nInvalid input. Please enter a number.")
         return
 
     if idx1 >= len(interfaces) or idx2 >= len(interfaces):
-        print("Invalid interface number.")
+        print("\nInvalid interface number.")
         return
 
     interface1 = interfaces[idx1]
@@ -136,7 +136,7 @@ def create_bridge_main():
 
     create_bridge(interface1, interface2)
     #log_event(f"Bridge created with interfaces {interface1} and {interface2}.") # Redundant logging with create_bridge()
-    print(f"Bridge created with interfaces {interface1} and {interface2}.")
+    print(f"\nBridge created with interfaces {interface1} and {interface2}.")
     
     log_event(show_bridge_info())
     show_bridge_info()
@@ -146,7 +146,7 @@ def main():
     create_initial_config()  # Ensure the config file is created with empty fields
     
     while True:
-        print("***** Bridge Utility *****")
+        print("\n\n***** Bridge Utility *****")
         print()
         print("1. Create Bridge")
         print("2. Teardown Bridge")

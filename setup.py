@@ -40,7 +40,6 @@ def parse_network_info():
 
     return parsed_info
 
-
 def print_network_info(parsed_info):
     for iface, info in parsed_info.items():
         print(f"Interface: {iface}")
@@ -49,7 +48,6 @@ def print_network_info(parsed_info):
             print(f"  IPv4 Address: {info['IPv4']['address']}")
             print(f"  IPv4 Netmask: {info['IPv4']['netmask']}")
         print("-" * 40)
-
 
 def show_bridge_info():
     # Use subprocess to call brctl show
@@ -60,7 +58,6 @@ def show_bridge_info():
     parsed_info = parse_network_info()
     print_network_info(parsed_info)
 
-
 def create_initial_config():
     config = {
         'interfaces': ["", ""],
@@ -68,7 +65,6 @@ def create_initial_config():
     }
     with open('config.json', 'w') as f:
         json.dump(config, f, indent=4)
-
 
 def create_bridge(interface1, interface2):
     subprocess.run(['sudo', 'ip', 'link', 'add', 'name', 'br0', 'type', 'bridge'])
@@ -87,7 +83,6 @@ def create_bridge(interface1, interface2):
 
     log_event(f"Bridge created: interfaces {interface1} and {interface2}, bridge br0")
     
-
 def remove_bridge():
     try:
         with open('config.json', 'r') as f:
@@ -140,7 +135,6 @@ def create_bridge_main():
     
     log_event(show_bridge_info())
     show_bridge_info()
-
 
 def main():
     create_initial_config()  # Ensure the config file is created with empty fields

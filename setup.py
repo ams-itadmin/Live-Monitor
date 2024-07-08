@@ -27,18 +27,12 @@ def parse_network_info():
         iface_info = {
             'MAC': None,
             'IPv4': None,
-            'IPv6': None
         }
         for addr in addrs:
             if addr.family == socket.AF_PACKET:
                 iface_info['MAC'] = addr.address
             elif addr.family == socket.AF_INET:
                 iface_info['IPv4'] = {
-                    'address': addr.address,
-                    'netmask': addr.netmask
-                }
-            elif addr.family == socket.AF_INET6:
-                iface_info['IPv6'] = {
                     'address': addr.address,
                     'netmask': addr.netmask
                 }
@@ -54,9 +48,6 @@ def print_network_info(parsed_info):
         if info['IPv4']:
             print(f"  IPv4 Address: {info['IPv4']['address']}")
             print(f"  IPv4 Netmask: {info['IPv4']['netmask']}")
-        if info['IPv6']:
-            print(f"  IPv6 Address: {info['IPv6']['address']}")
-            print(f"  IPv6 Netmask: {info['IPv6']['netmask']}")
         print("-" * 40)
 
 

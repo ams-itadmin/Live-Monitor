@@ -6,7 +6,7 @@ sudo apt install -y bridge-utils net-tools python3-pip python3-venv -y
 # sudo apt install wireshark -y
 
 # Make run_util.sh executable
-sudo chmod +x run_util.sh
+sudo chmod +x run-util.sh
 
 # Create a venv
 python3 -m venv venv 
@@ -26,4 +26,6 @@ touch general.log
 
 
 echo "Installation complete. You can now run the setup script."
-echo "To activate vitrual environment:  source venv/bin/activate"
+echo ""
+echo "To run script:  ./run-util.sh"
+# echo "To activate vitrual environment:  source venv/bin/activate"

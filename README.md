@@ -30,7 +30,7 @@ This repository contains scripts to set up a network bridge and enable promiscuo
 1. Run the start script.
 
     ```bash
-    ./run_util.sh
+    ./run-util.sh
     ```
 
 

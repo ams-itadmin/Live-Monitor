@@ -26,7 +26,17 @@ This repository contains scripts to set up a network bridge and enable promiscuo
     ./installer.sh
     ```
 
-## Setup
+## To Run
+1. Run the start script.
+
+    ```bash
+    ./run_util.sh
+    ```
+
+
+
+
+### Setup (older versions)
 1. Activate the virtual environment.
 
     ```bash
@@ -40,7 +50,7 @@ This repository contains scripts to set up a network bridge and enable promiscuo
 
 3. Follow the prompts to select the two network interfaces.
 
-## Shutdown
+### Shutdown
 1. Deactivate the venv
 
     ```bash

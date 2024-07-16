@@ -45,7 +45,7 @@ This repository contains scripts to set up a network bridge and enable promiscuo
 2. Run the setup script to create the network bridge and enable promiscuous mode:
 
     ```bash
-    python3 setup.py
+    python3 monitor.py
     ```
 
 3. Follow the prompts to select the two network interfaces.

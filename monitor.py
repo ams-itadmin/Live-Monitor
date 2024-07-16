@@ -62,6 +62,7 @@ def print_network_info(parsed_info):
 def show_bridge_info():
     # Use subprocess to call brctl show
     result = subprocess.run(['brctl', 'show'], stdout=subprocess.PIPE)
+    print()
     print(result.stdout.decode('utf-8'))
 
     # Use psutil to display network interface details
